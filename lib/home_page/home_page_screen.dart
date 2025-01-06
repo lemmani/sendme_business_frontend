@@ -1,8 +1,68 @@
 import 'package:flutter/material.dart';
 import 'components/catalogue_item.dart';
+import '../home_selected/home_screen.dart'; // Add your new screen here
+import '../review_items/review_screen.dart';
+// import 'screens/orders_screen.dart';
+// import 'screens/items_screen.dart';
+// import 'screens/activity_screen.dart';
+// import 'screens/profile_screen.dart';
 
-class HomePageScreen extends StatelessWidget {
+class HomePageScreen extends StatefulWidget {
   const HomePageScreen({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _HomePageScreenState createState() => _HomePageScreenState();
+}
+
+class _HomePageScreenState extends State<HomePageScreen> {
+  int _currentIndex = 1;
+
+  void _onBottomNavTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const ReviewScreen()),
+        );
+        break;
+      case 1:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const ReviewScreen()),
+        );
+        break;
+      case 2:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const ReviewScreen()),
+        );
+        break;
+      case 3:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const ReviewScreen()),
+        );
+        break;
+    }
+  }
+
+  void _navigateToDetails(String title, String price, IconData icon) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HomeScreen(
+          title: title,
+          price: price,
+          iconData: icon,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,26 +106,54 @@ class HomePageScreen extends StatelessWidget {
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,
-                children: const [
-                  CatalogueItem(
-                    title: 'Oreo Ice Cream Float',
-                    price: 'SLE 550',
-                    iconData: Icons.icecream,
+                children: [
+                  GestureDetector(
+                    onTap: () => _navigateToDetails(
+                      'Oreo Ice Cream Float',
+                      'SLE 550',
+                      Icons.icecream,
+                    ),
+                    child: const CatalogueItem(
+                      title: 'Oreo Ice Cream Float',
+                      price: 'SLE 550',
+                      iconData: Icons.icecream,
+                    ),
                   ),
-                  CatalogueItem(
-                    title: 'Veggie Wrap',
-                    price: 'SLE 230',
-                    iconData: Icons.wrap_text,
+                  GestureDetector(
+                    onTap: () => _navigateToDetails(
+                      'Veggie Wrap',
+                      'SLE 230',
+                      Icons.wrap_text,
+                    ),
+                    child: const CatalogueItem(
+                      title: 'Veggie Wrap',
+                      price: 'SLE 230',
+                      iconData: Icons.wrap_text,
+                    ),
                   ),
-                  CatalogueItem(
-                    title: 'Chicken Combo Meal',
-                    price: 'SLE 550',
-                    iconData: Icons.fastfood,
+                  GestureDetector(
+                    onTap: () => _navigateToDetails(
+                      'Chicken Combo Meal',
+                      'SLE 550',
+                      Icons.fastfood,
+                    ),
+                    child: const CatalogueItem(
+                      title: 'Chicken Combo Meal',
+                      price: 'SLE 550',
+                      iconData: Icons.fastfood,
+                    ),
                   ),
-                  CatalogueItem(
-                    title: 'Cocoa Choco Jumbo Bowl',
-                    price: 'SLE 550',
-                    iconData: Icons.icecream,
+                  GestureDetector(
+                    onTap: () => _navigateToDetails(
+                      'Cocoa Choco Jumbo Bowl',
+                      'SLE 550',
+                      Icons.icecream,
+                    ),
+                    child: const CatalogueItem(
+                      title: 'Cocoa Choco Jumbo Bowl',
+                      price: 'SLE 550',
+                      iconData: Icons.icecream,
+                    ),
                   ),
                 ],
               ),
@@ -81,7 +169,8 @@ class HomePageScreen extends StatelessWidget {
           BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Activity'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
-        currentIndex: 1,
+        currentIndex: _currentIndex,
+        onTap: _onBottomNavTapped,
       ),
     );
   }
